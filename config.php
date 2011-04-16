@@ -17,18 +17,21 @@ $src_path = "src/";
 $tmp_path = "tmp/";
 $website_path = "../2011-beta/";
 
-$sponsors_output_block = "src/blocks/sponsors.md";
+$sponsors_output_block = array(
+	"zh-tw" => "src/blocks/sponsors-zh-tw.html";
+	"zh-cn" => "src/blocks/sponsors-zh-cn.html";
+	"en" => "src/blocks/sponsors-en.html";
 
 $sponsors_output_page = array(
-	"zh-tw" => "src/zh-tw/sponsors/index.md",
-	"zh-cn" => "src/zh-cn/sponsors/index.md",
-	"en" => "src/en/sponsors/index.md"
+	"zh-tw" => "src/zh-tw/sponsors/index.html",
+	"zh-cn" => "src/zh-cn/sponsors/index.html",
+	"en" => "src/en/sponsors/index.html"
 );
 
 $json_output = array(
-	"menu" => "src/api/menu/menu.json",
-	"sponsors" => "src/api/sponsors/sponsors.json",
-	"program" => "src/api/program/program.json"
+	"menu" => "src/api/menu/menu.json.js",
+	"sponsors" => "src/api/sponsors/sponsors.json.js",
+	"program" => "src/api/program/program.json.js"
 );
 
 
