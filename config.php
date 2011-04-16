@@ -18,14 +18,14 @@ $tmp_path = "tmp/";
 $website_path = "../2011-beta/";
 
 $sponsors_output_block = array(
-	"zh-tw" => "src/blocks/sponsors-zh-tw.html";
-	"zh-cn" => "src/blocks/sponsors-zh-cn.html";
-	"en" => "src/blocks/sponsors-en.html";
+	"zh-tw" => "src/blocks/sponsors-zh-tw.md";
+	"zh-cn" => "src/blocks/sponsors-zh-cn.md";
+	"en" => "src/blocks/sponsors-en.md";
 
 $sponsors_output_page = array(
-	"zh-tw" => "src/zh-tw/sponsors/index.html",
-	"zh-cn" => "src/zh-cn/sponsors/index.html",
-	"en" => "src/en/sponsors/index.html"
+	"zh-tw" => "src/zh-tw/sponsors/index.md",
+	"zh-cn" => "src/zh-cn/sponsors/index.md",
+	"en" => "src/en/sponsors/index.md"
 );
 
 $json_output = array(
