@@ -14,11 +14,11 @@
 define('TRANSLATE_KEY', 'YOUR_GOOGLE_API_KEY');
 define('SPONSOR_LIST_KEY', 'YOUR_GOOGLE_SPREADSHEET_API_KEY_WHICH_HAS_SPONSORS');
 
-$marksite_path = "marksite/";
-$theme_path = "../2011-theme/";
-$src_path = "src/";
-$tmp_path = "tmp/";
-$website_path = "../2011-beta/";
+define('MARKSITE_PATH', 'marksite/');
+define('THEME_PATH', '../2011-theme/');
+define('SRC_PATH', 'src/');
+define('TMP_PATH', 'tmp/');
+define('WEBSITE_PATH', '../2011-beta/');
 
 $sponsors_output = array(
 	"sidebar" => array(

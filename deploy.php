@@ -13,13 +13,13 @@ function recompile_and_sync()
 {
 	print ("= Compiling Content =\n");
 
-	chdir ("marksite");
+	chdir (MARKSITE_PATH);
 	include 'marksite.php';
 	chdir ("..");
 	print ("\n");
 
 	print ("= Syncing Content =\n");
-	system ("rsync -a --delete $tmp_path $website_path");
+	system ('rsync -a --delete ' . TMP_PATH . ' ' . WEBSITE_PATH);
 	print ("\n");
 }
 
