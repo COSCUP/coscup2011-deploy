@@ -34,7 +34,7 @@ $sponsors_output = array(
 );
 
 $json_output = array(
-	"menu" => "src/api/menu/menu.json.js",
+	"menu" => "tmp/api/menu/menu.json.js",
 	"sponsors" => "src/api/sponsors/sponsors.json.js",
 	"program" => "src/api/program/program.json.js"
 );
