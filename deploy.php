@@ -3,6 +3,7 @@ include_once("config.php");
 include_once("google_translate.php");
 
 header('Content-Type: text/plain');
+setlocale(LC_ALL, 'en_US.UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
 {
