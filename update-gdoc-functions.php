@@ -12,7 +12,7 @@ function get_sponsors_list_from_gdoc() {
 
 	$SPONS = array();
 
-	// name, level, url, logoUrl, desc, enName, enDesc
+	// name, level, url, logoUrl, desc, enName, enDesc, zhCnName, zhCnDesc
 	while (($SPON = fgetcsv($handle)) !== FALSE)
 	{
 
@@ -26,13 +26,13 @@ function get_sponsors_list_from_gdoc() {
 		$SPONS[$level][] = array(
 			'name' => array(
 				'zh-tw' => $SPON[0],
-				'zh-cn' => translate_post($SPON[0]),
-				'en' => $SPON[5]
+				'en' => $SPON[5],
+				'zh-cn' => trim($SPON[7])?$SPON[7]:$SPON[0]
 			),
 			'desc' => array(
 				'zh-tw' => html_pretty($SPON[4]),
-				'zh-cn' => translate_post(html_pretty($SPON[4])),
-				'en' => html_pretty($SPON[6])
+				'en' => html_pretty($SPON[6]),
+				'zh-cn' => html_pretty( trim($SPON[8])?$SPON[8]:$SPON[4] )
 			),
 			'url' => $SPON[2],
 			'logoUrl' => $SPON[3],
