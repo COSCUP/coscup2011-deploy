@@ -2,7 +2,6 @@
 include_once("deploy.php");
 
 print ("= Updating Source =\n");
-system ("svn revert " . SRC_PATH);
 system ("svn update " . SRC_PATH);
 system ("svn info " . SRC_PATH);
 print ("\n");
