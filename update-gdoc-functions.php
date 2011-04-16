@@ -125,7 +125,9 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 	return $html;
 }
 
+
 $SPONS = get_sponsors_list_from_gdoc();
+
 foreach ($sponsors_output as $type => $l10n)
 {
 	foreach ($l10n as $lang => $path)
@@ -135,3 +137,7 @@ foreach ($sponsors_output as $type => $l10n)
 		fclose($fp);
 	}
 }
+
+$fp = fopen ($json_output["sponsors"], "w");
+fwrite ($fp, json_encode($SPONS));
+fclose ($fp);

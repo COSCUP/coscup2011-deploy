@@ -12,11 +12,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 
 function recompile_and_sync()
 {
+	# workaround trying to use value in config.
+	include ("config.php");
+
 	print ("= Compiling Content =\n");
 
 	chdir (MARKSITE_PATH);
 	include 'marksite.php';
 	chdir ("..");
+	print ("\n");
+
+	print ("= Writing menu.json.js =\n");
+	$fp = fopen ($json_output["menu"], "w");
+	fwrite ($fp, json_encode($marksite->menu));
+	fclose ($fp);
 	print ("\n");
 
 	print ("= Syncing Content =\n");
