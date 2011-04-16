@@ -25,14 +25,14 @@ function get_sponsors_list_from_gdoc() {
 
 		$SPONS[$level][] = array(
 			'name' => array(
-				'zh-tw' => html_pretty($SPON[0]),
-				'zh-cn' => html_pretty(translate_post($SPON[0])),
+				'zh-tw' => $SPON[0],
+				'zh-cn' => translate_post($SPON[0]),
 				'en' => $SPON[5]
 			),
 			'desc' => array(
 				'zh-tw' => html_pretty($SPON[4]),
-				'zh-cn' => html_pretty(translate_post($SPON[4])),
-				'en' => $SPON[6]
+				'zh-cn' => translate_post(html_pretty($SPON[4])),
+				'en' => html_pretty($SPON[6])
 			),
 			'url' => $SPON[2],
 			'logoUrl' => $SPON[3],
