@@ -4,4 +4,5 @@ include_once("deploy.php");
 
 print ("= Updating Deploy Script =\n");
 system ("svn update");
+system ("svn info");
 print ("\n");
