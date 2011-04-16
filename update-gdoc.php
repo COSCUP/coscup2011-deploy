@@ -143,7 +143,6 @@ foreach ($sponsors_output as $type => $l10n)
 {
 	foreach ($l10n as $lang => $path)
 	{
-		system("svn revert $path");
 		$fp = fopen($path, "a");
 		fwrite($fp, get_sponsors_html($SPONS, $type, $lang));
 		fclose($fp);
