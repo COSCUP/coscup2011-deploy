@@ -1,13 +1,12 @@
 <?php
 include_once ("deploy.php");
-include_once ("update-gdoc-functions.php");
 
 print ("= Reverting Source SVN =\n");
 system ("svn revert -R " . SRC_PATH);
 print ("\n");
 
 print ("= Updating GDoc =\n");
-update_gdoc();
+include ("update-gdoc-functions.php");
 print ("\n");
 
 

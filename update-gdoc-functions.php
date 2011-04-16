@@ -125,18 +125,13 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 	return $html;
 }
 
-function update_gdoc()
+$SPONS = get_sponsors_list_from_gdoc();
+foreach ($sponsors_output as $type => $l10n)
 {
-	system ("svn revert -R " . SRC_PATH);
-
-	$SPONS = get_sponsors_list_from_gdoc();
-	foreach ($sponsors_output as $type => $l10n)
+	foreach ($l10n as $lang => $path)
 	{
-		foreach ($l10n as $lang => $path)
-		{
-			$fp = fopen($path, "a");
-			fwrite($fp, get_sponsors_html($SPONS, $type, $lang));
-			fclose($fp);
-		}
+		$fp = fopen($path, "a");
+		fwrite($fp, get_sponsors_html($SPONS, $type, $lang));
+		fclose($fp);
 	}
 }
