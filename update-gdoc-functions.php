@@ -125,20 +125,6 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 	return $html;
 }
 
-function html_pretty($string) {
-	$html = '';
-	foreach (explode("\n", htmlspecialchars($string)) as $para) {
-		$para = trim($para);
-		if (!$para) continue;
-		$para = preg_replace('|(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)|', '<a href="$1">$1</a>', $para);
-		$para = preg_replace('/(www\.[a-z\.]+)/i', '<a href="http://$1/">$1</a>', $para);
-		$para = preg_replace('/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+)/i', '<a href="mailto:$1">$1</a>', $para);
-		$html .= '<p>' . $para . '</p>' . "\n";
-	}
-	return $html;
-}
-
-
 function update_gdoc()
 {
 	system ("svn revert -R " . SRC_PATH);

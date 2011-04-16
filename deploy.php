@@ -23,3 +23,19 @@ function recompile_and_sync()
 	system ('rsync -a --delete ' . TMP_PATH . ' ' . WEBSITE_PATH);
 	print ("\n");
 }
+
+function html_pretty($string) 
+{
+	$html = '';
+	foreach (explode("\n", htmlspecialchars($string)) as $para) 
+	{
+		$para = trim($para);
+		if (!$para) continue;
+		$para = preg_replace('|(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)|', '<a href="$1">$1</a>', $para);
+		$para = preg_replace('/(www\.[a-z\.]+)/i', '<a href="http://$1/">$1</a>', $para);
+		$para = preg_replace('/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+)/i', '<a href="mailto:$1">$1</a>', $para);
+		$html .= '<p>' . $para . '</p>' . "\n";
+	}
+	return $html;
+}
+
