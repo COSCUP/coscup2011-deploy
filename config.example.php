@@ -19,6 +19,7 @@ define('THEME_PATH', '../2011-theme/');
 define('SRC_PATH', 'src/');
 define('TMP_PATH', 'tmp/');
 define('WEBSITE_PATH', '../2011-beta/');
+define('CMS_THEME_PATH', '../2011-sponsors/sites/all/themes/coscup2011/');
 
 $sponsors_output = array(
 	"sidebar" => array(
