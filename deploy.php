@@ -24,7 +24,12 @@ function recompile_and_sync()
 
 	print ("= Writing menu.json.js =\n");
 	$fp = fopen ($json_output["menu"], "w");
-	fwrite ($fp, json_encode($marksite->menu));
+	$r = array();
+	foreach($marksite->menu as $locale => $menuitem)
+	{
+		$r[$locale] = "<ul>" . $marksite->menu_recursion($menuitem['menu'], 1, 2, false) . "</ul>";
+	}
+	fwrite ($fp, json_encode($r));
 	fclose ($fp);
 	print ("\n");
 
