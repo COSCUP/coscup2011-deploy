@@ -3,7 +3,7 @@ include_once ("deploy.php");
 
 function get_sponsors_list_from_gdoc() {
 
-	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . SPONSOR_LIST_KEY . '&range=A2%3AG99&output=csv', 'r');
+	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . SPONSOR_LIST_KEY . '&range=A2%3AI99&output=csv', 'r');
 
 	if (!$handle)
 	{
