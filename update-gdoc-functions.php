@@ -106,7 +106,7 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 		foreach ($SPONS as $level => &$LSPONS)
 		{
 			$html .= sprintf("<h2>%s</h2>\n", htmlspecialchars($levelTitles[$level]));
-			$html .= "<ul>\n";
+			$html .= sprintf('<ul class="%s">'."\n", $level);
 
 			foreach ($LSPONS as $i => &$SPON)
 			{
