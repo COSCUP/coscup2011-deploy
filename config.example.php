@@ -6,6 +6,7 @@
  * |- 2011 - main website
  * |- 2011-theme - theme
  * |+ deploy - deploy script (cwd)
+ *  |- coscup_sponsorship - sponsorship form
  *  |- marksite - marksite script
  *  |- src - content source
  *  |- tmp - temporary output
