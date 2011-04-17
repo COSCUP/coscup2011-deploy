@@ -23,25 +23,52 @@ function get_sponsors_list_from_gdoc() {
 			$SPONS[$level] = array();
 		}
 
-		$SPONS[$level][] = array(
+		$SPON_obj = array(
 			'name' => array(
-				'zh-tw' => $SPON[0],
-				'en' => $SPON[5],
-				'zh-cn' => trim($SPON[7])?$SPON[7]:$SPON[0]
+				'zh-tw' => $SPON[0]
 			),
 			'desc' => array(
-				'zh-tw' => html_pretty($SPON[4]),
-				'en' => html_pretty($SPON[6]),
-				'zh-cn' => html_pretty( trim($SPON[8])?$SPON[8]:$SPON[4] )
+				'zh-tw' => html_pretty($SPON[4])
 			),
 			'url' => $SPON[2],
 			'logoUrl' => $SPON[3],
 		);
+		
+		if (trim($SPON[5]))
+		{
+			$SPON_obj['name']['en'] = $SPON[5];
+		}
+
+		if (trim($SPON[6]))
+		{
+			$SPON_obj['desc']['en'] = html_pretty($SPON[6]);
+		}
+
+		if (trim($SPON[7]))
+		{
+			$SPON_obj['name']['zh-cn'] = $SPON[7];
+		}
+
+		if (trim($SPON[8]))
+		{
+			$SPON_obj['desc']['zh-cn'] = html_pretty($SPON[8]);
+		}
+
+		array_push ($SPONS[$level], $SPON_obj);
 	}
 
 	fclose($handle);
 
 	return $SPONS;
+}
+
+function get_sponsor_info_localize($SPON, $type='name', $locale='zh-tw', $fallback='zh-tw')
+{
+	if ($SPON[$type][$locale])
+	{
+		return $SPON[$type][$locale];
+	}
+	return $SPON[$type][$fallback];
 }
 
 function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
@@ -86,7 +113,7 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 				$html .= sprintf('<li><a href="%s" target="_blank" title="%s">'.
 						 '<img src="%s" width="178" height="72" /></a></li>'."\n",
 						htmlspecialchars($SPON['url']),
-						htmlspecialchars($SPON['name'][$lang]),
+						htmlspecialchars(get_sponsor_info_localize($SPON, 'name', $lang)),
 						htmlspecialchars($SPON['logoUrl'])
 						);
 			}
@@ -111,11 +138,11 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 
 				$html .= sprintf('<h3><a href="%s" target="_blank">%s</a></h3>'."\n",
 						htmlspecialchars($SPON['url']),
-						htmlspecialchars($SPON['name'][$lang])
+						get_sponsor_info_localize($SPON, 'name', $lang)
 						);
 
 				$html .= sprintf('<div class="sponsor_content">%s</div>'."\n",
-						$SPON['desc'][$lang]);
+						get_sponsor_info_localize($SPON, 'desc', $lang));
 
 				$html .= "\n";
 			}
