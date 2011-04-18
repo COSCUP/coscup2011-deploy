@@ -123,6 +123,7 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 		break;
 
 		case 'page':
+		$html .= '<div class="sponsors">';
 		foreach ($SPONS as $level => &$LSPONS)
 		{
 			$html .= '<h2>' . htmlspecialchars($levelTitles[$level]) . '</h2>'."\n";
@@ -147,6 +148,7 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 				$html .= "\n";
 			}
 		}
+		$html .= '</div>';
 		break;
 	}
 	return $html;
