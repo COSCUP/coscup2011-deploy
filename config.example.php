@@ -26,9 +26,9 @@ define('SPONSORSHIP_FORM_PATH', 'coscup_sponsorship/');
 
 $sponsors_output = array(
 	"sidebar" => array(
-		"zh-tw" => "src/blocks/sponsors-zh-tw.md",
-		"zh-cn" => "src/blocks/sponsors-zh-cn.md",
-		"en" => "src/blocks/sponsors.md"
+		"zh-tw" => "src/blocks/sponsors-zh-tw.html",
+		"zh-cn" => "src/blocks/sponsors-zh-cn.html",
+		"en" => "src/blocks/sponsors.html"
 	),
 	"page" => array(
 		"zh-tw" => "src/zh-tw/sponsors/index.md",
