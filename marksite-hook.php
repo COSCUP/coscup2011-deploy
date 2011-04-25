@@ -2,8 +2,7 @@
 include_once("deploy.php");
 
 print ("= Updating Marksite =\n");
-system ("svn update " . MARKSITE_PATH);
-system ("svn info " . MARKSITE_PATH);
+system ("git " . git_cwd(MARKSITE_PATH) . " pull origin master");
 print ("\n");
 
 recompile_and_sync();

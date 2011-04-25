@@ -2,9 +2,8 @@
 include_once("deploy.php");
 
 print ("= Updating Theme =\n");
-system ("svn revert -R " . THEME_PATH);
-system ("svn update " . THEME_PATH);
-system ("svn info " . THEME_PATH);
+system ("git " . git_cwd(THEME_PATH) . " reset --hard");
+system ("git " . git_cwd(THEME_PATH) . " pull origin master");
 print ("\n");
 
 print ("= Syncing Theme =\n");

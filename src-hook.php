@@ -1,13 +1,12 @@
 <?php
 include_once("deploy.php");
 
-print ("= Reverting Source SVN =\n");
-system ("svn revert -R " . SRC_PATH);
+print ("= Reverting Source =\n");
+system ("git " . git_cwd(SRC_PATH) . " reset --hard");
 print ("\n");
 
-print ("= Updating Source SVN =\n");
-system ("svn update " . SRC_PATH);
-system ("svn info " . SRC_PATH);
+print ("= Updating Source =\n");
+system ("git " . git_cwd(SRC_PATH) . " pull origin master");
 print ("\n");
 
 

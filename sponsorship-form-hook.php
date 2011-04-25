@@ -2,8 +2,7 @@
 include_once("deploy.php");
 
 print ("= Updating Sponsorship Form =\n");
-system ("svn update " . SPONSORSHIP_FORM_PATH);
-system ("svn info " . SPONSORSHIP_FORM_PATH);
+system ("git " . git_cwd(SPONSORSHIP_FORM_PATH) . " pull origin master");
 print ("\n");
 
 print ("= Syncing Sponsorship Form =\n");

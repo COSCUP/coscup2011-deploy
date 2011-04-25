@@ -1,21 +1,19 @@
 <?php
 include_once ("deploy.php");
 
-print ("= Reverting Source SVN =\n");
-system ("svn revert -R " . SRC_PATH);
+print ("= Reverting Source =\n");
+system ("git " . git_cwd(SRC_PATH) . " reset --hard");
 print ("\n");
 
 if ($_POST["fullupdate"] == 1)
 {
 	print ("= Updating Marksite =\n");
-	system ("svn update " . MARKSITE_PATH);
-	system ("svn info " . MARKSITE_PATH);
+	system ("git " . git_cwd(MARKSITE_PATH) . " pull origin master");
 	print ("\n");
 
 
 	print ("= Updating Sponsorship Form =\n");
-	system ("svn update " . SPONSORSHIP_FORM_PATH);
-	system ("svn info " . SPONSORSHIP_FORM_PATH);
+	system ("git " . git_cwd(SPONSORSHIP_FORM_PATH) . " pull origin master");
 	print ("\n");
 
 	print ("= Syncing Sponsorship Form =\n");
@@ -23,15 +21,13 @@ if ($_POST["fullupdate"] == 1)
 	print ("\n");
 
 
-	print ("= Updating Source SVN =\n");
-	system ("svn update " . SRC_PATH);
-	system ("svn info " . SRC_PATH);
+	print ("= Updating Source =\n");
+	system ("git " . git_cwd(SRC_PATH) . " pull origin master");
 	print ("\n");
 
 	print ("= Updating Theme =\n");
-	system ("svn revert -R " . THEME_PATH);
-	system ("svn update " . THEME_PATH);
-	system ("svn info " . THEME_PATH);
+	system ("git " . git_cwd(THEME_PATH) . " reset --hard");
+	system ("git " . git_cwd(THEME_PATH) . " pull origin master");
 	print ("\n");
 
 	print ("= Syncing Theme =\n");
