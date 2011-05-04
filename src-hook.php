@@ -1,12 +1,11 @@
 <?php
 include_once("deploy.php");
 
-print ("= Reverting Source =\n");
-system ("git " . git_cwd(SRC_PATH) . " reset --hard");
-print ("\n");
-
 print ("= Updating Source =\n");
-system ("git " . git_cwd(SRC_PATH) . " pull origin master");
+chdir (SRC_PATH);
+system ("git reset --hard");
+system ("git pull origin master");
+chdir ($cwd);
 print ("\n");
 
 

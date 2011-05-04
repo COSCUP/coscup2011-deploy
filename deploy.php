@@ -7,8 +7,10 @@ setlocale(LC_ALL, 'en_US.UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
 {
-//	die("Error: Not a POST request.");
+	die("Error: Not a POST request.");
 }
+
+$cwd = getcwd();
 
 function recompile_and_sync()
 {
@@ -51,9 +53,4 @@ function html_pretty($string)
 		$html .= '<p>' . $para . '</p>' . "\n";
 	}
 	return $html;
-}
-
-function git_cwd($path)
-{
-	return "--work-tree=$path --git-dir=$path.git";
 }

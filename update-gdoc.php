@@ -2,18 +2,24 @@
 include_once ("deploy.php");
 
 print ("= Reverting Source =\n");
-system ("git " . git_cwd(SRC_PATH) . " reset --hard");
+chdir (SRC_PATH);
+system ("git reset --hard");
+chdir ($cwd);
 print ("\n");
 
 if ($_POST["fullupdate"] == 1)
 {
 	print ("= Updating Marksite =\n");
-	system ("git " . git_cwd(MARKSITE_PATH) . " pull origin master");
+	chdir (MARKSITE_PATH);
+	system ("git pull origin master");
+	chdir ($cwd);
 	print ("\n");
 
 
 	print ("= Updating Sponsorship Form =\n");
-	system ("git " . git_cwd(SPONSORSHIP_FORM_PATH) . " pull origin master");
+	chdir (SPONSORSHIP_FORM_PATH);
+	system ("git pull origin master");
+	chdir ($cwd);
 	print ("\n");
 
 	print ("= Syncing Sponsorship Form =\n");
@@ -22,12 +28,16 @@ if ($_POST["fullupdate"] == 1)
 
 
 	print ("= Updating Source =\n");
-	system ("git " . git_cwd(SRC_PATH) . " pull origin master");
+	chdir (SRC_PATH);
+	system ("git pull origin master");
+	chdir ($cwd);
 	print ("\n");
 
 	print ("= Updating Theme =\n");
-	system ("git " . git_cwd(THEME_PATH) . " reset --hard");
-	system ("git " . git_cwd(THEME_PATH) . " pull origin master");
+	chdir (THEME_PATH);
+	system ("git reset --hard");
+	system ("git pull origin master");
+	chdir ($cwd);
 	print ("\n");
 
 	print ("= Syncing Theme =\n");
