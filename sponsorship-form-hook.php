@@ -4,6 +4,7 @@ include_once("deploy.php");
 print ("= Updating Sponsorship Form =\n");
 chdir (SPONSORSHIP_FORM_PATH);
 system ("git pull origin master");
+system ("git log -1");
 chdir ($cwd);
 print ("\n");
 

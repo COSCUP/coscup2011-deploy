@@ -5,6 +5,7 @@ print ("= Updating Theme =\n");
 chdir (THEME_PATH);
 system ("git " . git_cwd(THEME_PATH) . " reset --hard");
 system ("git " . git_cwd(THEME_PATH) . " pull origin master");
+system ("git log -1");
 chdir ($cwd);
 print ("\n");
 
