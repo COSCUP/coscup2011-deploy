@@ -20,7 +20,7 @@ define('THEME_PATH', '../2011-theme/');
 define('SRC_PATH', 'src/');
 define('TMP_PATH', 'tmp/');
 define('WEBSITE_PATH', '../2011-beta/');
-define('CMS_MODULE_PATH', '../2011-sponsor/site/all/modules/coscup_sponsorship/');
+define('CMS_MODULE_PATH', '../2011-sponsor/sites/all/modules/coscup_sponsorship/');
 define('CMS_THEME_PATH', '../2011-sponsor/sites/all/themes/coscup2011/');
 define('SPONSORSHIP_FORM_PATH', 'coscup_sponsorship/');
 
