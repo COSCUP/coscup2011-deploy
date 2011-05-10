@@ -1,6 +1,271 @@
 <?php
 include_once ("deploy.php");
 
+date_default_timezone_set('Asia/Taipei');
+setlocale (LC_ALL, "en_US.UTF-8");
+
+function get_program_list_from_gdoc() {
+
+	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . PROGRAM_LIST_KEY . '&range=A2%3AI99&output=csv', 'r');
+
+	if (!$handle)
+	{
+		return FALSE; // failed
+	}
+
+	$program_list = array();
+
+	// name, from, to, room, type, speaker, speakerTitle, desc, language
+	while (($program = fgetcsv($handle)) !== FALSE)
+	{
+
+		$program_obj = array(
+			'name' => $program[0],
+
+			// use strtotime to convert to unix timestamp.
+			'from' => strtotime($program[1]),
+			'to' => strtotime($program[2]),
+
+			// use intval to get integer value
+			'room' => intval($program[3]),
+			'type' => intval($program[4]),
+
+			'speaker' => $program[5],
+			'speakerTitle' => $program[6],
+			'desc' => htmlspecialchars($program[7]),
+
+			'language' => $program[8]
+		);
+
+		$program_list[] = $program_obj;
+	}
+
+	fclose($handle);
+
+	return $program_list;
+}
+
+function get_program_types_from_gdoc() {
+
+	// TODO: constant gid written in uri
+	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . PROGRAM_LIST_KEY . '&gid=3&range=A2%3AB99&output=csv', 'r');
+
+	if (!$handle)
+	{
+		return FALSE; // failed
+	}
+
+	$type_list = array();
+
+	// id, name
+	while (($type = fgetcsv($handle)) !== FALSE)
+	{
+		$type_list[intval($type[0])] = $type[1];
+	}
+
+	fclose($handle);
+
+	return $type_list;
+}
+
+function get_program_rooms_from_gdoc() {
+
+	// TODO: constant gid written in uri
+	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . PROGRAM_LIST_KEY . '&gid=4&range=A2%3AD99&output=csv', 'r');
+
+	if (!$handle)
+	{
+		return FALSE; // failed
+	}
+
+	$room_list = array();
+
+	// id, name, nameEn, nameZhCn
+	while (($room = fgetcsv($handle)) !== FALSE)
+	{
+		$room_list[intval($room[0])] = array(
+			'zh-tw' => $room[1],
+			'en' => $room[2],
+			'zh-cn' => $room[3]
+		);
+	}
+
+	fclose($handle);
+
+	return $room_list;
+}
+
+function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang = 'zh-tw') {
+
+	$l10n = array(
+		'en' => array(
+			'time' => 'Time',
+			'day_1' => 'Day 1',
+			'day_2' => 'Day 2'
+		),
+		'zh-tw' => array(
+			'time' => '時間',
+			'day_1' => '第一天',
+			'day_2' => '第二天'
+		),
+		'zh-cn' => array(
+			'time' => '时间',
+			'day_1' => '第一天',
+			'day_2' => '第二天'
+		)
+	);
+
+
+
+
+	// constructing data structures
+
+	$structure = array();
+	$time_structure = array();
+
+
+	foreach ($program_list as &$program)
+	{
+		if(!isset($structure[$program['from']]))
+		{
+			$structure[$program['from']] = array();
+		}
+
+		$structure[$program['from']][$program['room']] =& $program;
+		$time_structure[] = $program['from'];
+		$time_structure[] = $program['to'];
+	}
+
+	$time_structure = array_unique($time_structure);
+	sort($time_structure);
+
+
+	
+
+
+
+
+
+	
+
+	$html = '';
+	$html .= '<ul class="types">';
+	foreach($type_list as $type_id => $type_name)
+	{
+		if ($type_id <= 0)
+		{
+			continue;
+		}
+		$html .= sprintf('<li class="type_%d">%s</li>'."\n",
+				$type_id,
+				htmlspecialchars($type_name)
+				);
+	}
+	$html .= '</ul>' . "\n\n";
+
+
+
+
+
+
+
+
+	$last_stamp = 0;
+	$day_increment = 0;
+
+	foreach ($time_structure as $time_id => $time_stamp)
+	{
+		if (!isset($structure[$time_stamp]))
+		{
+			continue;
+		}
+
+		$last_time = getdate($last_stamp);
+		$this_time = getdate($time_stamp);
+		$this_time_formatted = strftime("%R", $time_stamp);
+		$to_time_formatted = strftime("%R", $time_structure[$time_id+1]);
+		
+		if ($last_time['yday'] != $this_time['yday'] || $last_time['year'] != $this_time['year'])
+		{
+			if($day_increment > 0)
+			{
+				$html .= '</tbody></table>'."\n";
+			}
+			$day_increment += 1;
+			$html .= '<h2>' 
+				. $l10n[$lang]["day_$day_increment"] 
+				. ' (' . $this_time['mon'] . '/' . $this_time['mday'] . ')' 
+				. '</h2>'
+				."\n";
+
+			$html .= <<<EOT
+<table>
+<thead>
+	<tr><th>{$l10n[$lang]['time']}</th>
+
+EOT;
+
+			foreach($room_list as $k => $v)
+			{
+				if ($k <= 0)
+				{
+					continue;
+				}
+
+				$html .= "<th>$v[$lang]</th>";
+			}
+
+			$html .= <<<EOT
+	</tr>
+</thead>
+<tbody>
+
+EOT;
+
+		}
+
+
+
+		$html .= <<<EOT
+	<tr>
+		<th><span>{$this_time_formatted}</span> — {$to_time_formatted}</th>
+
+EOT;
+
+		ksort($structure[$time_stamp]);
+		foreach ($structure[$time_stamp] as &$program)
+		{
+			$colspan = $program['room'] === 0 ? sizeof($room_list)-1 : 1;
+			
+			$rowspan = 1;
+			while ($time_structure[$time_id + $rowspan] < $program['to'])
+			{
+				$rowspan += 1;
+			}
+
+	// name, from, to, room, type, speaker, speakerTitle, desc, language
+			$html .= <<<EOT
+		<td class="program_content program_lang_{$program['language']} program_type_{$program['type']}" colspan="{$colspan}" rowspan="{$rowspan}">
+			<p class="name">{$program['name']}</p>
+			<p class="room">{$room_list[$program['room']][$lang]}</p>
+			<p class="speaker">{$program['speaker']}</p>
+			<p class="speakerTitle">{$program['speakerTitle']}</p>
+			<p class="desc">{$program['desc']}</p>
+		</td>
+
+EOT;
+		}
+
+		$html .= "</tr>\n\n";
+
+		$last_stamp = $time_stamp;
+	}
+
+	$html .= '</tbody></table>'."\n";
+
+	return $html;
+}
+
 function get_sponsors_list_from_gdoc() {
 
 	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . SPONSOR_LIST_KEY . '&range=A2%3AI99&output=csv', 'r');
@@ -169,4 +434,30 @@ foreach ($sponsors_output as $type => $l10n)
 
 $fp = fopen ($json_output["sponsors"], "w");
 fwrite ($fp, json_encode($SPONS));
+fclose ($fp);
+
+
+
+
+$program_list = get_program_list_from_gdoc();
+$program_types_list = get_program_types_from_gdoc();
+$program_rooms_list = get_program_rooms_from_gdoc();
+
+foreach ($program_list_output as $lang => $path)
+{
+	$fp = fopen($path, "a");
+	fwrite($fp, get_program_list_html($program_list, $program_types_list, $program_rooms_list, $lang));
+	fclose($fp);
+}
+
+$fp = fopen ($json_output["program_list"], "w");
+fwrite ($fp, json_encode($program_list));
+fclose ($fp);
+
+$fp = fopen ($json_output["program_types"], "w");
+fwrite ($fp, json_encode($program_types_list));
+fclose ($fp);
+
+$fp = fopen ($json_output["program_rooms"], "w");
+fwrite ($fp, json_encode($program_rooms_list));
 fclose ($fp);
