@@ -6,7 +6,7 @@ setlocale (LC_ALL, "en_US.UTF-8");
 
 function get_program_list_from_gdoc() {
 
-	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . PROGRAM_LIST_KEY . '&range=A2%3AI99&output=csv', 'r');
+	$handle = @fopen('https://spreadsheets.google.com/pub?key=' . PROGRAM_LIST_KEY . '&range=A2%3AJ99&output=csv', 'r');
 
 	if (!$handle)
 	{
@@ -26,16 +26,37 @@ function get_program_list_from_gdoc() {
 			'from' => strtotime($program[1]),
 			'to' => strtotime($program[2]),
 
-			// use intval to get integer value
-			'room' => intval($program[3]),
-			'type' => intval($program[4]),
-
-			'speaker' => $program[5],
-			'speakerTitle' => $program[6],
-			'desc' => htmlspecialchars($program[7]),
-
-			'language' => $program[8]
+			'room' => intval($program[3])
 		);
+
+		if (trim($program[4]))
+		{
+			$program_obj['type'] = intval($program[4]);
+		}
+
+		if (trim($program[5]))
+		{
+			$program_obj['speaker'] = $program[5];
+
+			if (trim($program[6]))
+			{
+				$program_obj['speakerTitle'] = $program[6];
+			}
+			if (trim($program[7]))
+			{
+				$program_obj['bio'] = html_pretty($program[7]);
+			}
+		}
+
+		if (trim($program[8]))
+		{
+			$program_obj['abstract'] = html_pretty($program[8]);
+		}
+
+		if (trim($program[9]))
+		{
+			$program_obj['lang'] = $program[9];
+		}
 
 		$program_list[] = $program_obj;
 	}
@@ -156,7 +177,7 @@ function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang =
 		{
 			continue;
 		}
-		$html .= sprintf('<li class="type_%d">%s</li>'."\n",
+		$html .= sprintf('<li class="program_type_%d">%s</li>'."\n",
 				$type_id,
 				htmlspecialchars($type_name)
 				);
@@ -235,6 +256,7 @@ EOT;
 		ksort($structure[$time_stamp]);
 		foreach ($structure[$time_stamp] as &$program)
 		{
+			// calculate colspan and rowspan
 			$colspan = $program['room'] === 0 ? sizeof($room_list)-1 : 1;
 			
 			$rowspan = 1;
@@ -243,17 +265,67 @@ EOT;
 				$rowspan += 1;
 			}
 
-	// name, from, to, room, type, speaker, speakerTitle, desc, language
-			$html .= <<<EOT
-		<td class="program_content program_lang_{$program['language']} program_type_{$program['type']}" colspan="{$colspan}" rowspan="{$rowspan}">
-			<p class="name">{$program['name']}</p>
-			<p class="room">{$room_list[$program['room']][$lang]}</p>
-			<p class="speaker">{$program['speaker']}</p>
-			<p class="speakerTitle">{$program['speakerTitle']}</p>
-			<p class="desc">{$program['desc']}</p>
-		</td>
 
+
+
+			// build classlist
+			$class_list = array();
+			$class_list[] = "program_content";
+
+			if (isset($program['lang']))
+			{
+				$class_list[] = "program_lang_{$program['lang']}";
+			}
+
+			if (isset($program['type']))
+			{
+				$class_list[] = "program_type_{$program['type']}";
+			}
+
+			$class_list_string = implode(" ", $class_list);
+
+			$html .= <<<EOT
+		<td class="{$class_list_string}" colspan="{$colspan}" rowspan="{$rowspan}">
 EOT;
+
+
+
+			$html .= '<p class="name">'.htmlspecialchars($program['name']).'</p>';
+
+
+
+			if (isset($program['room'])) // FIXME: some events doesn't need room information.
+			{
+				$html .= '<p class="room">' . htmlspecialchars($room_list[$program['room']][$lang]) . '</p>';
+			}
+
+
+
+			if (isset($program['abstract']))
+			{
+				$html .= '<div class="abstract">' . $program['abstract'] . '</div>';
+			}
+
+
+
+			if (isset($program['speaker']))
+			{
+				$html .= '<p class="speaker">' . htmlspecialchars($program['speaker']) . '</p>';
+
+				if (isset($program['speakerTitle']))
+				{
+					$html .= '<p class="speakerTitle">' . htmlspecialchars($program['speakerTitle']) . '</p>';
+				}
+
+				if (isset($program['bio']))
+				{
+					$html .= '<div class="bio">' . $program['bio'] . '</div>';
+				}
+			}
+
+
+
+			$html .= "</td>\n";
 		}
 
 		$html .= "</tr>\n\n";
