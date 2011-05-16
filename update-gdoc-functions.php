@@ -223,7 +223,7 @@ function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang =
 				."\n";
 
 			$html .= <<<EOT
-<table>
+<table class="program">
 <thead>
 	<tr><th>{$l10n[$lang]['time']}</th>
 
