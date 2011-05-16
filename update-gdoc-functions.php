@@ -299,15 +299,6 @@ EOT;
 				$html .= '<p class="room">' . htmlspecialchars($room_list[$program['room']][$lang]) . '</p>';
 			}
 
-
-
-			if (isset($program['abstract']))
-			{
-				$html .= '<div class="abstract">' . $program['abstract'] . '</div>';
-			}
-
-
-
 			if (isset($program['speaker']))
 			{
 				$html .= '<p class="speaker">' . htmlspecialchars($program['speaker']) . '</p>';
@@ -315,11 +306,6 @@ EOT;
 				if (isset($program['speakerTitle']))
 				{
 					$html .= '<p class="speakerTitle">' . htmlspecialchars($program['speakerTitle']) . '</p>';
-				}
-
-				if (isset($program['bio']))
-				{
-					$html .= '<div class="bio">' . $program['bio'] . '</div>';
 				}
 			}
 
