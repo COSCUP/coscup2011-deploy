@@ -145,8 +145,11 @@ function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang =
 	$time_structure = array();
 
 
-	foreach ($program_list as &$program)
+	foreach ($program_list as $id => &$program)
 	{
+
+		$program['id'] = $id;
+
 		if(!isset($structure[$program['from']]))
 		{
 			$structure[$program['from']] = array();
@@ -285,7 +288,7 @@ EOT;
 			$class_list_string = implode(" ", $class_list);
 
 			$html .= <<<EOT
-		<td class="{$class_list_string}" colspan="{$colspan}" rowspan="{$rowspan}">
+		<td data-pid="{$program['id']}" class="{$class_list_string}" colspan="{$colspan}" rowspan="{$rowspan}">
 EOT;
 
 
