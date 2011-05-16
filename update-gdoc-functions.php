@@ -285,6 +285,11 @@ EOT;
 				$class_list[] = "program_type_{$program['type']}";
 			}
 
+			if (isset($program['room'])) // FIXME: some events doesn't need room information.
+			{
+				$class_list[] = "program_room_{$program['room']}";
+			}
+
 			$class_list_string = implode(" ", $class_list);
 
 			$html .= <<<EOT
