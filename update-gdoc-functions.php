@@ -463,7 +463,7 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 			{
 
 				/* for sponsors who has another logo space */
-				if (!trim($SPON['desc']))
+				if (!trim(get_sponsor_info_localize($SPON, 'desc', $lang)))
 				{
 					continue;
 				}
