@@ -413,17 +413,17 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 			'media' => 'Media Partners'
 		),
 		'zh-tw' => array(
-			'diamond' => '鑽石級贊助商',
-			'gold' => '黃金級贊助商',
-			'silver' => '白銀級贊助商',
-			'bronze' => '青銅級贊助商',
+			'diamond' => '鑽石級贊助',
+			'gold' => '黃金級贊助',
+			'silver' => '白銀級贊助',
+			'bronze' => '青銅級贊助',
 			'media' => '媒體夥伴'
 		),
 		'zh-cn' => array(
 			'diamond' => '钻石级赞助商',
-                        'gold' => '黄金级赞助商',
-                        'silver' => '白银级赞助商',
-                        'bronze' => '青铜级赞助商',
+                        'gold' => '黄金级赞助',
+                        'silver' => '白银级赞助',
+                        'bronze' => '青铜级赞助',
                         'media' => '媒体伙伴'
 		)
 	);
