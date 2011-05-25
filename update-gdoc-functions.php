@@ -462,8 +462,8 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 			foreach($LSPONS as $i => &$SPON)
 			{
 
-				/* for sponsors who has another logo space */
-				if (!trim(get_sponsor_info_localize($SPON, 'desc', $lang)))
+				/* for sponsors who has another logo space, exclude media partners */
+				if ($level !== 'media' && !trim(get_sponsor_info_localize($SPON, 'desc', $lang)))
 				{
 					continue;
 				}
@@ -473,8 +473,11 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 						get_sponsor_info_localize($SPON, 'name', $lang)
 						);
 
-				$html .= sprintf('<div class="sponsor_content">%s</div>'."\n",
-						get_sponsor_info_localize($SPON, 'desc', $lang));
+				if (trim(get_sponsor_info_localize($SPON, 'desc', $lang)))
+				{
+					$html .= sprintf('<div class="sponsor_content">%s</div>'."\n",
+							get_sponsor_info_localize($SPON, 'desc', $lang));
+				}
 
 				$html .= "\n";
 			}
