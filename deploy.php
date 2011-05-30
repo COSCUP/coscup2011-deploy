@@ -7,7 +7,7 @@ setlocale(LC_ALL, 'en_US.UTF-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
 {
-//	die("Error: Not a POST request.");
+	die("Error: Not a POST request.");
 }
 
 $cwd = getcwd();
