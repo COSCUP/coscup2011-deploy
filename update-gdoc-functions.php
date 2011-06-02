@@ -173,6 +173,18 @@ function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang =
 	
 
 	$html = '';
+
+	$html .= '<ul class="shortcuts">';
+
+	foreach (array(1, 2) as $day) {
+		$html .= sprintf('<li><a href="#day%d">%s</a></li>'."\n",
+				$day,
+				$l10n[$lang]["day_$day"]
+				);
+	}
+
+	$html .= '</ul>' . "\n\n";
+
 	$html .= '<ul class="types">';
 	foreach($type_list as $type_id => $type_name)
 	{
@@ -216,7 +228,7 @@ function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang =
 				$html .= '</tbody></table>'."\n";
 			}
 			$day_increment += 1;
-			$html .= '<h2>' 
+			$html .= '<h2 id="day' . $day_increment . '">'
 				. $l10n[$lang]["day_$day_increment"] 
 				. ' (' . $this_time['mon'] . '/' . $this_time['mday'] . ')' 
 				. '</h2>'
