@@ -440,18 +440,29 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 		)
 	);
 
+	// order of levels (fixed)
+	$levels = array(
+		'diamond',
+		'gold',
+		'silver',
+		'bronze',
+		'media'
+	);
+
 	$levelTitles = $levelTitlesL10n[$lang];
 
 	$html = '';
 	switch ($type)
 	{
 		case 'sidebar':
-		foreach ($SPONS as $level => &$LSPONS)
+		foreach ($levels as &$level)
 		{
+			if (!$SPONS[$level]) continue;
+
 			$html .= sprintf("<h2>%s</h2>\n", htmlspecialchars($levelTitles[$level]));
 			$html .= sprintf('<ul class="%s">'."\n", $level);
 
-			foreach ($LSPONS as $i => &$SPON)
+			foreach ($SPONS[$level] as $i => &$SPON)
 			{
 				$html .= sprintf('<li><a href="%s" target="_blank" title="%s">'.
 						 '<img src="%s" width="178" height="72" /></a></li>'."\n",
@@ -467,11 +478,13 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 
 		case 'page':
 		$html .= '<div class="sponsors">';
-		foreach ($SPONS as $level => &$LSPONS)
+		foreach ($levels as &$level)
 		{
+			if (!$SPONS[$level]) continue;
+
 			$html .= '<h2>' . htmlspecialchars($levelTitles[$level]) . '</h2>'."\n";
 
-			foreach($LSPONS as $i => &$SPON)
+			foreach ($SPONS[$level] as $i => &$SPON)
 			{
 
 				/* for sponsors who has another logo space, exclude media partners */
