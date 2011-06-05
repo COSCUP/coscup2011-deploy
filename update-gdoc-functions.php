@@ -285,7 +285,7 @@ EOT;
 
 			// build classlist
 			$class_list = array();
-			$class_list[] = "program_content";
+			//$class_list[] = "program_content";
 
 			if (isset($program['lang']))
 			{
@@ -297,9 +297,17 @@ EOT;
 				$class_list[] = "program_type_{$program['type']}";
 			}
 
-			if (isset($program['room']) && isset($program['type']) && $program['type'] !== 0)
+			if (isset($program['room']))
 			{
 				$class_list[] = "program_room_{$program['room']}";
+			}
+
+			if (isset($program['room']) && $program['room'] === 0
+				&& isset($program['type']) && $program['type'] === 0
+				&& isset($program['speaker']) && $program['speaker'] === ''
+			)
+			{
+				$class_list[] = "program_break";
 			}
 
 			$class_list_string = implode(" ", $class_list);
@@ -314,7 +322,13 @@ EOT;
 
 
 
-			if (isset($program['room']) && isset($program['type']) && $program['type'] !== 0)
+			if (
+				isset($program['room'])
+				&& (
+					(isset($program['type']) && $program['type'] !== 0)
+					|| (isset($program['speaker']) && $program['speaker'] !== '')
+				)
+			)
 			{
 				$html .= '<p class="room">' . htmlspecialchars($room_list[$program['room']][$lang]) . '</p>';
 			}
