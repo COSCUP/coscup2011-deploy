@@ -297,7 +297,7 @@ EOT;
 				$class_list[] = "program_type_{$program['type']}";
 			}
 
-			if (isset($program['room'])) // FIXME: some events doesn't need room information.
+			if (isset($program['room']) && isset($program['type']) && $program['type'] !== 0)
 			{
 				$class_list[] = "program_room_{$program['room']}";
 			}
@@ -314,7 +314,7 @@ EOT;
 
 
 
-			if (isset($program['room'])) // FIXME: some events doesn't need room information.
+			if (isset($program['room']) && isset($program['type']) && $program['type'] !== 0)
 			{
 				$html .= '<p class="room">' . htmlspecialchars($room_list[$program['room']][$lang]) . '</p>';
 			}
