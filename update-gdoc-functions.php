@@ -303,8 +303,8 @@ EOT;
 			}
 
 			if (isset($program['room']) && $program['room'] === 0
-				&& isset($program['type']) && $program['type'] === 0
-				&& isset($program['speaker']) && $program['speaker'] === ''
+				&& !isset($program['type'])
+				&& !isset($program['speaker'])
 			)
 			{
 				$class_list[] = "program_break";
