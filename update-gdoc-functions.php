@@ -507,8 +507,9 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 					continue;
 				}
 
-				$html .= sprintf('<h3><a href="%s" target="_blank">%s</a></h3>'."\n",
+				$html .= sprintf('<h3><a href="%s" target="_blank"><img src="%s" width="178" height="72" />%s</a></h3>'."\n",
 						htmlspecialchars($SPON['url']),
+						htmlspecialchars($SPON['logoUrl']),
 						get_sponsor_info_localize($SPON, 'name', $lang)
 						);
 
