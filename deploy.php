@@ -1,6 +1,7 @@
 <?php 
 include_once("config.php");
 include_once("google_translate.php");
+include_once(MARKSITE_PATH."markdown.php");
 
 header('Content-Type: text/plain');
 setlocale(LC_ALL, 'en_US.UTF-8');
@@ -40,17 +41,7 @@ function recompile_and_sync()
 	print ("\n");
 }
 
-function html_pretty($string) 
+function tag_stripped_markdown($s)
 {
-	$html = '';
-	foreach (explode("\n", htmlspecialchars($string)) as $para) 
-	{
-		$para = trim($para);
-		if (!$para) continue;
-		$para = preg_replace('|(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)|', '<a href="$1">$1</a>', $para);
-		$para = preg_replace('/(www\.[a-z\.]+)/i', '<a href="http://$1/">$1</a>', $para);
-		$para = preg_replace('/([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+)/i', '<a href="mailto:$1">$1</a>', $para);
-		$html .= '<p>' . $para . '</p>' . "\n";
-	}
-	return $html;
+	return Markdown(strip_tags($s));
 }

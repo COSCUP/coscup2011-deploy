@@ -44,13 +44,13 @@ function get_program_list_from_gdoc() {
 			}
 			if (trim($program[7]))
 			{
-				$program_obj['bio'] = html_pretty($program[7]);
+				$program_obj['bio'] = tag_stripped_markdown($program[7]);
 			}
 		}
 
 		if (trim($program[8]))
 		{
-			$program_obj['abstract'] = html_pretty($program[8]);
+			$program_obj['abstract'] = tag_stripped_markdown($program[8]);
 		}
 
 		if (trim($program[9]))
@@ -385,7 +385,7 @@ function get_sponsors_list_from_gdoc() {
 				'zh-tw' => $SPON[0]
 			),
 			'desc' => array(
-				'zh-tw' => html_pretty($SPON[4])
+				'zh-tw' => tag_stripped_markdown($SPON[4])
 			),
 			'url' => $SPON[2],
 			'logoUrl' => $SPON[3],
@@ -398,7 +398,7 @@ function get_sponsors_list_from_gdoc() {
 
 		if (trim($SPON[6]))
 		{
-			$SPON_obj['desc']['en'] = html_pretty($SPON[6]);
+			$SPON_obj['desc']['en'] = tag_stripped_markdown($SPON[6]);
 		}
 
 		if (trim($SPON[7]))
@@ -408,7 +408,7 @@ function get_sponsors_list_from_gdoc() {
 
 		if (trim($SPON[8]))
 		{
-			$SPON_obj['desc']['zh-cn'] = html_pretty($SPON[8]);
+			$SPON_obj['desc']['zh-cn'] = tag_stripped_markdown($SPON[8]);
 		}
 
 		array_push ($SPONS[$level], $SPON_obj);
