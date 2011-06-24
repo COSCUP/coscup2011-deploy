@@ -1,7 +1,6 @@
 <?php 
 include_once("config.php");
 include_once("google_translate.php");
-include_once(MARKSITE_PATH."markdown.php");
 
 header('Content-Type: text/plain');
 setlocale(LC_ALL, 'en_US.UTF-8');
@@ -39,9 +38,4 @@ function recompile_and_sync()
 	print ("= Syncing Content =\n");
 	system ('rsync -a --delete ' . TMP_PATH . ' ' . WEBSITE_PATH);
 	print ("\n");
-}
-
-function tag_stripped_markdown($s)
-{
-	return Markdown(htmlspecialchars($s));
 }

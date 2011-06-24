@@ -1,5 +1,6 @@
 <?php
 include_once ("deploy.php");
+include_once ("markdown-without-markup.php");
 
 date_default_timezone_set('Asia/Taipei');
 setlocale (LC_ALL, "en_US.UTF-8");
@@ -44,13 +45,13 @@ function get_program_list_from_gdoc() {
 			}
 			if (trim($program[7]))
 			{
-				$program_obj['bio'] = tag_stripped_markdown($program[7]);
+				$program_obj['bio'] = Markdown_Without_Markup($program[7]);
 			}
 		}
 
 		if (trim($program[8]))
 		{
-			$program_obj['abstract'] = tag_stripped_markdown($program[8]);
+			$program_obj['abstract'] = Markdown_Without_Markup($program[8]);
 		}
 
 		if (trim($program[9]))
@@ -385,7 +386,7 @@ function get_sponsors_list_from_gdoc() {
 				'zh-tw' => $SPON[0]
 			),
 			'desc' => array(
-				'zh-tw' => tag_stripped_markdown($SPON[4])
+				'zh-tw' => Markdown_Without_Markup($SPON[4])
 			),
 			'url' => $SPON[2],
 			'logoUrl' => $SPON[3],
@@ -398,7 +399,7 @@ function get_sponsors_list_from_gdoc() {
 
 		if (trim($SPON[6]))
 		{
-			$SPON_obj['desc']['en'] = tag_stripped_markdown($SPON[6]);
+			$SPON_obj['desc']['en'] = Markdown_Without_Markup($SPON[6]);
 		}
 
 		if (trim($SPON[7]))
@@ -408,7 +409,7 @@ function get_sponsors_list_from_gdoc() {
 
 		if (trim($SPON[8]))
 		{
-			$SPON_obj['desc']['zh-cn'] = tag_stripped_markdown($SPON[8]);
+			$SPON_obj['desc']['zh-cn'] = Markdown_Without_Markup($SPON[8]);
 		}
 
 		array_push ($SPONS[$level], $SPON_obj);
