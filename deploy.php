@@ -43,5 +43,5 @@ function recompile_and_sync()
 
 function tag_stripped_markdown($s)
 {
-	return Markdown(strip_tags($s));
+	return Markdown(htmlspecialchars($s));
 }
