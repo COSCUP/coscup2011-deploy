@@ -10,6 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 	die("Error: Not a POST request.");
 }
 
+if ( trim(exec('whoami')) !== RUNNING_USER ) 
+{
+	die("Error: Please run with the specified user: ".RUNNING_USER);
+}
+
 $cwd = getcwd();
 
 function recompile_and_sync()

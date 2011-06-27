@@ -25,6 +25,8 @@ define('CMS_MODULE_PATH', '../2011-sponsor/site/all/modules/coscup_sponsorship/'
 define('CMS_THEME_PATH', '../2011-sponsor/sites/all/themes/coscup2011/');
 define('SPONSORSHIP_FORM_PATH', 'coscup_sponsorship/');
 
+define('RUNNING_USER', 'www-data');
+
 $sponsors_output = array(
 	"sidebar" => array(
 		"zh-tw" => "src/blocks/sponsors-zh-tw.html",
