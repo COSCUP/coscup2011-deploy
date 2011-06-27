@@ -328,7 +328,16 @@ EOT;
 
 
 
-			$html['program'] .= '<p class="name"><a href="abstract#'.anchor_name($program['name']).'">'.htmlspecialchars($program['name']).'</a></p>';
+			if (
+				isset($program['type']) && $program['type'] !== 0
+			)
+			{
+				$html['program'] .= '<p class="name"><a href="abstract/#'.anchor_name($program['name']).'">'.htmlspecialchars($program['name']).'</a></p>';
+			}
+			else
+			{
+				$html['program'] .= '<p class="name">'.htmlspecialchars($program['name']).'</p>';
+			}
 
 
 
