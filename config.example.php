@@ -41,9 +41,18 @@ $sponsors_output = array(
 );
 
 $program_list_output = array(
-	"zh-tw" => "src/zh-tw/program/testing/index.html",
-	"zh-cn" => "src/zh-cn/program/testing/index.html",
-	"en" => "src/en/program/testing/index.html"
+	"zh-tw" => array(
+		"program" => "src/zh-tw/program/testing/index.html",
+		"abstract" => "src/zh-tw/program/testing/abstract/index.html"
+		),
+	"zh-cn" => array(
+		"program" => "src/zh-cn/program/testing/index.html",
+		"abstract" => "src/zh-cn/program/testing/abstract/index.html"
+		),
+	"en" => array(
+		"program" => "src/en/program/testing/index.html",
+		"abstract" => "src/en/program/testing/abstract/index.html"
+		)
 );
 
 
