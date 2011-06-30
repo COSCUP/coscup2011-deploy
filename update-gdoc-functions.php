@@ -385,12 +385,12 @@ EOT;
 
 				if (isset($program['abstract']))
 				{
-					$html['abstract'] .= '<p class="abstract">' . $program['abstract'] . '</p>';
+					$html['abstract'] .= '<div class="abstract">' . $program['abstract'] . '</div>';
 				}
 
 				if (isset($program['bio']))
 				{
-					$html['bio'] .= '<p class="bio">' . $program['bio'] . '</p>';
+					$html['abstract'] .= '<div class="bio">' . $program['bio'] . '</div>';
 				}
 
 				$html['abstract'] .= "</div>\n";
