@@ -332,7 +332,7 @@ EOT;
 				isset($program['type']) && $program['type'] !== 0
 			)
 			{
-				$html['program'] .= '<p class="name"><a href="abstract/#'.anchor_name($program['name']).'">'.htmlspecialchars($program['name']).'</a></p>';
+				$html['program'] .= '<p class="name"><a rel="nocache" href="abstract/#'.anchor_name($program['name']).'">'.htmlspecialchars($program['name']).'</a></p>';
 			}
 			else
 			{
