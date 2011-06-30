@@ -424,7 +424,8 @@ function get_sponsors_list_from_gdoc() {
 	while (($SPON = fgetcsv($handle)) !== FALSE)
 	{
 
-		$level = $SPON[1];
+		$level = strtolower(trim($SPON[1]));
+		if (strlen($level) === 0) continue;
 
 		if (!isset($SPONS[$level]))
 		{
