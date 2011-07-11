@@ -30,6 +30,8 @@ function get_program_list_from_gdoc() {
 			'room' => intval($program[3])
 		);
 
+		if (trim($program[0]) === '')) continue;
+
 		if (trim($program[4]))
 		{
 			$program_obj['type'] = intval($program[4]);
