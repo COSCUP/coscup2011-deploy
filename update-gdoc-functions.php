@@ -30,7 +30,7 @@ function get_program_list_from_gdoc() {
 			'room' => intval($program[3])
 		);
 
-		if (trim($program[0]) === '')) continue;
+		if (trim($program[0]) === '') continue;
 
 		if (trim($program[4]) !== '')
 		{
