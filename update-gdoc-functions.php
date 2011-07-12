@@ -315,7 +315,7 @@ EOT;
 			}
 
 			if (isset($program['room']) && $program['room'] === 0
-				&& !isset($program['type'])
+				&& isset($program['type']) && $program['type'] === 0
 				&& !isset($program['speaker'])
 			)
 			{
