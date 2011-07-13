@@ -61,6 +61,19 @@ function get_program_list_from_gdoc() {
 			$program_obj['lang'] = $program[9];
 		}
 
+		if (
+			isset($program_obj['type']) && $program_obj['type'] === 0
+			&& $program_obj['room'] === 0
+			&& !isset($program_obj['speaker'])
+		)
+		{
+			$program_obj['isBreak'] = true;
+		}
+		else
+		{
+			$program_obj['isBreak'] = false;
+		}
+
 		$program_list[] = $program_obj;
 	}
 
@@ -314,10 +327,7 @@ EOT;
 				$class_list[] = "program_room_{$program['room']}";
 			}
 
-			if (isset($program['room']) && $program['room'] === 0
-				&& isset($program['type']) && $program['type'] === 0
-				&& !isset($program['speaker'])
-			)
+			if ($program['isBreak'])
 			{
 				$class_list[] = "program_break";
 			}
@@ -345,10 +355,7 @@ EOT;
 
 			if (
 				isset($program['room'])
-				&& (
-					(isset($program['type']) && $program['type'] !== 0)
-					|| (isset($program['speaker']) && $program['speaker'] !== '')
-				)
+				&& !$program['isBreak']
 			)
 			{
 				$html['program'] .= '<p class="room">' . htmlspecialchars($room_list[$program['room']][$lang]) . '</p>';
