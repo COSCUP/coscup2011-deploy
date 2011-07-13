@@ -289,7 +289,7 @@ EOT;
 
 		$html['program'] .= <<<EOT
 	<tr>
-		<th><span>{$this_time_formatted}</span> — {$to_time_formatted}</th>
+		<th rel="{$time_stamp}"><span>{$this_time_formatted}</span> — {$to_time_formatted}</th>
 
 EOT;
 
