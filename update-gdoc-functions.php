@@ -452,7 +452,7 @@ function get_sponsors_list_from_gdoc() {
 				'zh-tw' => $SPON[0]
 			),
 			'desc' => array(
-				'zh-tw' => Markdown_Without_Markup(linkify($SPON[4]))
+				'zh-tw' => Markdown_Without_Markup($SPON[4])
 			),
 			'url' => $SPON[2],
 			'logoUrl' => $SPON[3],
@@ -465,7 +465,7 @@ function get_sponsors_list_from_gdoc() {
 
 		if (trim($SPON[6]))
 		{
-			$SPON_obj['desc']['en'] = Markdown_Without_Markup(linkify($SPON[6]));
+			$SPON_obj['desc']['en'] = Markdown_Without_Markup($SPON[6]);
 		}
 
 		if (trim($SPON[7]))
