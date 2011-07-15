@@ -6,7 +6,7 @@ date_default_timezone_set('Asia/Taipei');
 setlocale (LC_ALL, "en_US.UTF-8");
 
 function linkify($text){
-	$text = preg_replace('/(?!\[|\<|\]\()(https?:\/\/[^\s\,\)]+)/', '[$0]($0)', $text);
+	$text = preg_replace('/(?<!\[|\<|\]\()(https?:\/\/[a-zA-Z0-9\/\&\$\#\+\;\:\?\@\,\%\.\-\=\_]+)/', '[$0]($0)', $text);
 	// FIXME: find better way to regexp this
 	return $text;
 }
