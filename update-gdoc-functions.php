@@ -604,46 +604,68 @@ function anchor_name($s)
 
 $SPONS = get_sponsors_list_from_gdoc();
 
-foreach ($sponsors_output as $type => $l10n)
+if ($SPONS === FALSE)
 {
-	foreach ($l10n as $lang => $path)
-	{
-		$fp = fopen($path, "a");
-		fwrite($fp, get_sponsors_html($SPONS, $type, $lang));
-		fclose($fp);
-	}
+	print "ERROR! Unable to download sponsors list from Google Docs.\n";
 }
-
-$fp = fopen ($json_output["sponsors"], "w");
-fwrite ($fp, json_encode($SPONS));
-fclose ($fp);
-
-
-
+else
+{
+	foreach ($sponsors_output as $type => $l10n)
+	{
+		foreach ($l10n as $lang => $path)
+		{
+			print "Write sponsors into " . $path . " .\n";
+			$fp = fopen($path, "a");
+			fwrite($fp, get_sponsors_html($SPONS, $type, $lang));
+			fclose($fp);
+		}
+	}
+	
+	print "Write sponsors into " . $json_output["sponsors"] . " .\n";
+	$fp = fopen ($json_output["sponsors"], "w");
+	fwrite ($fp, json_encode($SPONS));
+	fclose ($fp);
+}
 
 $program_list = get_program_list_from_gdoc();
 $program_types_list = get_program_types_from_gdoc();
 $program_rooms_list = get_program_rooms_from_gdoc();
-foreach ($program_list_output as $lang => $lang_array)
+
+if (
+	$program_list === FALSE
+	|| $program_types_list === FALSE
+	|| $program_rooms_list === FALSE
+)
 {
-	$program_list_html = get_program_list_html($program_list, $program_types_list, $program_rooms_list, $lang);
-
-	foreach ($lang_array as $type => $path)
-	{
-		$fp = fopen($path, "a");
-		fwrite($fp, $program_list_html[$type]);
-		fclose($fp);
-	}
+	print "ERROR! Unable to download program list from Google Docs.\n";
 }
+else
+{
+	foreach ($program_list_output as $lang => $lang_array)
+	{
+		$program_list_html = get_program_list_html($program_list, $program_types_list, $program_rooms_list, $lang);
+	
+		foreach ($lang_array as $type => $path)
+		{
+			print "Write program into " . $path . " .\n";
+			$fp = fopen($path, "a");
+			fwrite($fp, $program_list_html[$type]);
+			fclose($fp);
+		}
+	}
 
-$fp = fopen ($json_output["program_list"], "w");
-fwrite ($fp, json_encode($program_list));
-fclose ($fp);
+	print "Write program into " . $json_output["program_list"] . " .\n";
+	$fp = fopen ($json_output["program_list"], "w");
+	fwrite ($fp, json_encode($program_list));
+	fclose ($fp);
 
-$fp = fopen ($json_output["program_types"], "w");
-fwrite ($fp, json_encode($program_types_list));
-fclose ($fp);
+	print "Write program type into " . $json_output["program_types"] . " .\n";	
+	$fp = fopen ($json_output["program_types"], "w");
+	fwrite ($fp, json_encode($program_types_list));
+	fclose ($fp);
 
-$fp = fopen ($json_output["program_rooms"], "w");
-fwrite ($fp, json_encode($program_rooms_list));
-fclose ($fp);
+	print "Write program room into " . $json_output["program_rooms"] . " .\n";
+	$fp = fopen ($json_output["program_rooms"], "w");
+	fwrite ($fp, json_encode($program_rooms_list));
+	fclose ($fp);
+}
