@@ -5,9 +5,12 @@ include_once("google_translate.php");
 header('Content-Type: text/plain');
 setlocale(LC_ALL, 'en_US.UTF-8');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
+if (
+	!isset($argv) &&
+	$_SERVER['REQUEST_METHOD'] !== 'POST'
+) 
 {
-	die("Error: Not a POST request.");
+	die("Error: Not a POST request nor run from command line.");
 }
 
 if ( trim(exec('whoami')) !== RUNNING_USER ) 
