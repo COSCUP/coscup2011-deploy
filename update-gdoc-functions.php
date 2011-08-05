@@ -22,7 +22,7 @@ function get_program_list_from_gdoc() {
 
 	$program_list = array();
 
-	// name, from, to, room, type, speaker, speakerTitle, desc, language
+	// name, from, to, room, type, speaker, speakerTitle, desc, language, slide, youtube
 	while (($program = fgetcsv($handle)) !== FALSE)
 	{
 
@@ -65,6 +65,23 @@ function get_program_list_from_gdoc() {
 		if (trim($program[9]))
 		{
 			$program_obj['lang'] = $program[9];
+		}
+
+		if (trim($program[10]))
+		{
+			$program_obj['slide'] = trim($program[10]);
+		}
+
+		if (trim($program[11]))
+		{
+			$program_obj['youtube'] = array();
+			foreach (explode("\n", trim($program[11])) as $url)
+			{
+				if (trim($url))
+				{
+					$program_obj['youtube'][] = preg_replace('/^.+v=(\w+).*$/', '$1', trim($url)); // only get the ID
+				}
+			}
 		}
 
 		if (
@@ -392,6 +409,18 @@ EOT;
 			{
 				$html['abstract'] .= '<div class="article" id="'.anchor_name($program['name']).'">';
 				$html['abstract'] .= '<h3>'.htmlspecialchars($program['name']).'</h3>';
+
+				if (isset($program['slide']))
+				{
+					$html['abstract'] .= '<p class="slide"><a href="' . htmlspecialchars($program['slide']) . '" title="Slide">Slide</a></p>';
+				}
+
+				if (isset($program['youtube']))
+				{
+					foreach($program['youtube'] as $i => &$youtube_id) {
+						$html['abstract'] .= '<p class="youtube"><a href="http://www.youtube.com/watch?v=' . $youtube_id . '" title="Video ' . ($i+1) . '">Video ' . ($i+1) . '</a></p>';
+					}
+				}
 
 				if (isset($program['speaker']))
 				{
