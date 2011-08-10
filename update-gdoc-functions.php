@@ -575,10 +575,11 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 			foreach ($SPONS[$level] as $i => &$SPON)
 			{
 				$html .= sprintf('<li><a href="%s" target="_blank" title="%s">'.
-						 '<img src="%s" width="178" height="72" /></a></li>'."\n",
+						 '<img src="%s" width="178" height="72" alt="%s"/></a></li>'."\n",
 						htmlspecialchars($SPON['url']),
 						htmlspecialchars(get_sponsor_info_localize($SPON, 'name', $lang)),
-						htmlspecialchars($SPON['logoUrl'])
+						htmlspecialchars($SPON['logoUrl']),
+						htmlspecialchars(get_sponsor_info_localize($SPON, 'name', $lang))
 						);
 			}
 
@@ -603,9 +604,10 @@ function get_sponsors_html($SPONS, $type = 'sidebar', $lang = 'zh-tw') {
 					continue;
 				}
 
-				$html .= sprintf('<h3><a href="%s" target="_blank"><img src="%s" width="178" height="72" />%s</a></h3>'."\n",
+				$html .= sprintf('<h3><a href="%s" target="_blank"><img src="%s" width="178" height="72" alt="%s" />%s</a></h3>'."\n",
 						htmlspecialchars($SPON['url']),
 						htmlspecialchars($SPON['logoUrl']),
+						get_sponsor_info_localize($SPON, 'name', $lang),
 						get_sponsor_info_localize($SPON, 'name', $lang)
 						);
 
