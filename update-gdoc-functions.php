@@ -175,8 +175,20 @@ function get_program_list_html(&$program_list, &$type_list, &$room_list, $lang =
 		)
 	);
 
-
-
+	$name_replace = array(
+		'Check In' => array(
+			'zh-tw' => '報到',
+			'zh-cn' => '报到'
+		),
+		'Tea Break' => array(
+			'zh-tw' => '休息',
+			'zh-cn' => '休息'
+		),
+		'Lunch' => array(
+			'zh-tw' => '午餐',
+			'zh-cn' => '午餐'
+		)
+	);
 
 	// constructing data structures
 
@@ -371,7 +383,17 @@ EOT;
 			}
 			else
 			{
-				$html['program'] .= '<p class="name">'.htmlspecialchars($program['name']).'</p>';
+				if (
+					isset($name_replace[$program['name']]) &&
+					isset($name_replace[$program['name']][$lang])
+				)
+				{
+					$html['program'] .= '<p class="name">'.htmlspecialchars($name_replace[$program['name']][$lang]).'</p>';
+				}
+				else
+				{
+					$html['program'] .= '<p class="name">'.htmlspecialchars($program['name']).'</p>';
+				}
 			}
 
 
