@@ -79,7 +79,7 @@ function get_program_list_from_gdoc() {
 			{
 				if (trim($url))
 				{
-					$program_obj['youtube'][] = preg_replace('/^.+v=(\w+).*$/', '$1', trim($url)); // only get the ID
+					$program_obj['youtube'][] = preg_replace('/^.+v=([^"&?\/ ]{11}).*$/', '$1', trim($url)); // only get the ID
 				}
 			}
 		}
